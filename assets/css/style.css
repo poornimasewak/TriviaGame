@@ -1,0 +1,18 @@
+body {
+	background-image: url(../images/bg1.jpg);
+	background-size: cover;
+}
+.gameRow {
+	background-image: url(../images/gameName.jpg);
+	margin: 10px;
+	color: white;
+	padding: 30px;
+	font-size: 30px;
+	text-align: center;
+}
+.inside {
+	margin: 30px;
+	border: 1px solid black;
+	background-image: url(../images/bg2.jpg);
+	background-size: cover;
+}
