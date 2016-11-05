@@ -1,9 +1,4 @@
-$('#hide').hide();
-$('#btn').on('click', function() {
-    $('#hide').show();
-    $('#btn').hide();
-    // startGame();
-});
+
 var game = {
     questions: [{
         question: "Which is the longest river in Africa?",
@@ -22,6 +17,17 @@ var game = {
 var intervalId, timeoutId, count = 0, ans, right = 0, wrong = 0;
 // startGame();
 
+$('#hide').hide();
+$('#btn').on('click', function() {
+    $('#hide').show();
+    $('#btn').hide();
+    startGame();
+});
+
+function startGame() {
+	displayQuestion();
+}
+
 function displayQuestion() {
     // for(var i = 0; i < game.questions.length; i++){
     $('#question').html(game.questions[count].question);
@@ -31,11 +37,25 @@ function displayQuestion() {
     $('#opt4').html('<input type="radio" name="options" value='+game.questions[count].options[3]+'>' + game.questions[count].options[3]);
     
     timer();
+
     intervalId = setInterval(timer, 1000);
 
      $('input[type=radio]').click(function(){
 		ans = $('input[name=options]:checked').val();
 		console.log(ans);
+        // else {
+        if (game.questions[count].correct === ans) {
+         right++;
+         clearInterval(intervalId);
+         game.timer = 10;
+         nextQuestion();
+        }
+        else {
+            wrong++;
+            clearInterval(intervalId);
+         game.timer = 10;
+         nextQuestion();
+        }
 	});
 
 }
@@ -47,9 +67,10 @@ function nextQuestion() {
 
     if(count === game.questions.length)
     {
-    	console.log('game over');
-    	reset();
+    	
     	clearTimeout(timeoutId);
+        console.log('game over');
+        reset();
     	finalScore();
     }
 
@@ -64,25 +85,11 @@ function timer() {
         $('#time').html('Time Remaining : ' + ' Times up');
         nextQuestion();
     }
-    else {
-    	if (game.questions[count].correct === ans) {
-    	 right++;
-         clearInterval(intervalId);
-         game.timer = 10;
-         nextQuestion();
-        }
-
-     //  if (game.questions[count].correct !== ans){
-    	// wrong++;
-    	// clearInterval(intervalId);
-     //     game.timer = 10;
-     //     nextQuestion();
-     //    }
-    }
     
 }
 function finalScore() {
       console.log(right);
+      console.log(wrong);
 }
 
 function reset() {
