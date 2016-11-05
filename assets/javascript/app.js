@@ -8,13 +8,45 @@ var game = {
         question: "Which country in Europe has the biggest number of  inhabitants?",
         options: ["Germany", "France", "Italy", "UK"],
         correct: "Germany"
+    }, {
+        question: "Which nation spends the most per capita gambling in casinos?",
+        options: ["Germany", "Australia", "Italy", "USA"],
+        correct: "Australia"
+    }, {
+        question: "What city has the oldest Zoo in the world, and still in use today?",
+        options: ["London", "New York", "Delhi", "chicago"],
+        correct: "London"
+    }, {
+        question: "The Aryan race originated in what country?",
+        options: ["Germany", "France", "Italy", "India"],
+        correct: "India"
+    }, {
+        question: "What color car is reserved for the royal family in Japan?",
+        options: ["White", "Maroon", "Black", "Blue"],
+        correct: "Maroon"
+    }, {
+        question: "Which UK city is joined with London by the Grand Union canal?",
+        options: ["London", "Bristol", "Liverpool", "Birmingham"],
+        correct: "Birmingham"
+    }, {
+        question: "What is the Capital of the Ukraine?",
+        options: ["Kiev", "Sumy", "Lviv", "Odessa"],
+        correct: "Kiev"
+    }, {
+        question: "What nation has the highest  percentage of women in their legislature?",
+        options: ["India", "Cuba", "Italy", "UK"],
+        correct: "Cuba"
+    }, {
+        question: "The northernmost point of Africa is in what country?",
+        options: ["Ethiopia", "Nigeria", "Tunisia", "Kenya"],
+        correct: "Tunisia"
     }],
     timer: 10,
 
     score: 0
 }
 
-var intervalId, timeoutId, count = 0, ans, right = 0, wrong = 0;
+var intervalId, timeoutId, count = 0, ans, right = 0, wrong = 0, unanswered = 0;
 // startGame();
 
 $('#hide').hide();
@@ -69,18 +101,19 @@ function nextQuestion() {
     {
     	
     	clearTimeout(timeoutId);
-        console.log('game over');
+        // console.log('game over');
+        finalScore();
         reset();
-    	finalScore();
     }
 
 
 }
-displayQuestion();
+
 //function to show remaining time
 function timer() {
     $('#time').html('Time Remaining : ' + game.timer-- + ' seconds');
   if (game.timer < 0) {
+       unanswered++;
         clearInterval(intervalId);
         $('#time').html('Time Remaining : ' + ' Times up');
         nextQuestion();
@@ -88,10 +121,23 @@ function timer() {
     
 }
 function finalScore() {
-      console.log(right);
-      console.log(wrong);
+    $('#hide').hide();
+    $('#score').html('<div><img src="C:/Users/poornima/Desktop/nw_bootcamp/TriviaGame/assets/images/200w.gif" ></div><br>All Done, Heres how you did!!!<br>'+'Correct Answers : '+right+'<br>Incorrect Answers : '+wrong+'<br>Unanswered : '+unanswered);
+    $('#score').append('<br><button id="btn2">Start Over</button>');
+
+    $('#btn2').on('click', function() {
+    $('#hide').show();
+    $('#btn2').hide();
+    $('#score').hide();
+    startGame();
+});
+
 }
 
 function reset() {
-	count = 0;	  
+	count = 0;
+    right = 0;
+    wrong = 0;
+    unanswered = 0;	  
 }
+
